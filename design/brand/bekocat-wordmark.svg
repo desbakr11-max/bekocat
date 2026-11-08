@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 100" width="880" height="200">
+  <rect width="440" height="100" fill="#0B0D12"/>
+  <g transform="translate(6 4) scale(0.92)">
+    <path d="M19 76 V36 L27 15 L41 29 H59 L73 15 L81 36 V76 Q81 84 73 84 H27 Q19 84 19 76 Z"
+          fill="none" stroke="#9B7CFF" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M44 46 L44 68 L62 57 Z" fill="#F4F7FB" stroke="#F4F7FB" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M50 77 L57 84 L50 91 L43 84 Z" fill="#6EE7C8"/>
+  </g>
+  <text x="104" y="58" font-family="Inter, 'Noto Sans', Arial, sans-serif" font-size="44" font-weight="700" letter-spacing="-1" fill="#F4F7FB">bekocat</text>
+  <text x="106" y="84" font-family="'Noto Sans Arabic', 'Noto Naskh Arabic', sans-serif" font-size="20" fill="#98A3B7">بيكوكات · استديو الحركة والمونتاج</text>
+</svg>

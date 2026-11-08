@@ -1,0 +1,218 @@
+{
+  "schema": 1,
+  "generated_from": "ai/src/main/java/app/bekocat/ai/ModelManager.kt",
+  "policy": "Models are downloaded only on explicit user request, resumable, size- and SHA-256-verified, stored in app-private storage, and run fully offline. No model is bundled in the APK.",
+  "runtimes": [
+    {
+      "name": "sherpa-onnx",
+      "version": "1.12.21",
+      "license": "Apache-2.0",
+      "artifact": "sherpa-onnx-static-link-onnxruntime-1.12.21.aar",
+      "sha256": "6d1bf9a2ede218d9f33115f494058b83ae5c2af8a8275e64353c3de8c83a2603"
+    },
+    {
+      "name": "ONNX Runtime Android",
+      "version": "1.30.0",
+      "license": "MIT",
+      "artifact": "com.microsoft.onnxruntime:onnxruntime-android"
+    },
+    {
+      "name": "MediaPipe LLM Inference",
+      "version": "0.10.33",
+      "license": "Apache-2.0",
+      "artifact": "com.google.mediapipe:tasks-genai"
+    }
+  ],
+  "models": [
+    {
+      "id": "asr-whisper-base",
+      "name_ar": "تفريغ الكلام · Whisper base",
+      "name_en": "Speech recognition · Whisper base",
+      "task": "asr",
+      "files": [
+        {
+          "path": "base-encoder.int8.onnx",
+          "url": "https://huggingface.co/csukuangfj/sherpa-onnx-whisper-base/resolve/main/base-encoder.int8.onnx",
+          "bytes": 29120534,
+          "sha256": "0b8fb1304b6109976038efff5ace81720e00386f3ff6b54ee8c75291ca0a1e11"
+        },
+        {
+          "path": "base-decoder.int8.onnx",
+          "url": "https://huggingface.co/csukuangfj/sherpa-onnx-whisper-base/resolve/main/base-decoder.int8.onnx",
+          "bytes": 130672026,
+          "sha256": "9759d217388a01b3a4c7c15533201067b48ae819c4daafc8624e64b9409dc02d"
+        },
+        {
+          "path": "base-tokens.txt",
+          "url": "https://huggingface.co/csukuangfj/sherpa-onnx-whisper-base/resolve/main/base-tokens.txt",
+          "bytes": 816730,
+          "sha256": "b34b360dbb493e781e479794586d661700670d65564001f23024971d1f2fa126"
+        },
+        {
+          "path": "silero_vad.onnx",
+          "url": "https://huggingface.co/csukuangfj/vad/resolve/main/silero_vad.onnx",
+          "bytes": 1807522,
+          "sha256": "a35ebf52fd3ce5f1469b2a36158dba761bc47b973ea3382b3186ca15b1f5af28"
+        }
+      ],
+      "total_bytes": 162416812,
+      "license_runtime": "MIT (Whisper), Apache-2.0 (sherpa-onnx)",
+      "license_weights": "MIT (OpenAI Whisper), MIT (Silero VAD)",
+      "source": "openai/whisper via k2-fsa/sherpa-onnx",
+      "ram_estimate_mb": 700,
+      "languages": "ar, en (+97)",
+      "notes_en": "Balanced: good speed, moderate Arabic accuracy. Includes VAD.",
+      "known_limits": "Word timings are approximate: VAD phrase timing is exact, words inside a phrase are distributed by character length (Whisper in sherpa-onnx exposes no word timestamps). Translation only to English (Whisper translate task)."
+    },
+    {
+      "id": "asr-whisper-small",
+      "name_ar": "تفريغ الكلام · Whisper small (جودة)",
+      "name_en": "Speech recognition · Whisper small (quality)",
+      "task": "asr",
+      "files": [
+        {
+          "path": "small-encoder.int8.onnx",
+          "url": "https://huggingface.co/csukuangfj/sherpa-onnx-whisper-small/resolve/main/small-encoder.int8.onnx",
+          "bytes": 112442483,
+          "sha256": "4cbe7b22fa9026b843b60a68640c747de05bafb1a11b57edc0e66c232d9f33a9"
+        },
+        {
+          "path": "small-decoder.int8.onnx",
+          "url": "https://huggingface.co/csukuangfj/sherpa-onnx-whisper-small/resolve/main/small-decoder.int8.onnx",
+          "bytes": 262226114,
+          "sha256": "acad50b5c782696e91b55914cc5ab4f756f1532f76e22aa6fc615f39fb69a8ee"
+        },
+        {
+          "path": "small-tokens.txt",
+          "url": "https://huggingface.co/csukuangfj/sherpa-onnx-whisper-small/resolve/main/small-tokens.txt",
+          "bytes": 816730,
+          "sha256": "b34b360dbb493e781e479794586d661700670d65564001f23024971d1f2fa126"
+        },
+        {
+          "path": "silero_vad.onnx",
+          "url": "https://huggingface.co/csukuangfj/vad/resolve/main/silero_vad.onnx",
+          "bytes": 1807522,
+          "sha256": "a35ebf52fd3ce5f1469b2a36158dba761bc47b973ea3382b3186ca15b1f5af28"
+        }
+      ],
+      "total_bytes": 377292849,
+      "license_runtime": "MIT, Apache-2.0",
+      "license_weights": "MIT",
+      "source": "openai/whisper via k2-fsa/sherpa-onnx",
+      "ram_estimate_mb": 1500,
+      "languages": "ar, en (+97)",
+      "notes_en": "Higher accuracy for Arabic and dialects; slower.",
+      "known_limits": "Same timing limitation as base. Roughly 2-3x slower."
+    },
+    {
+      "id": "diarization",
+      "name_ar": "فصل المتحدثين",
+      "name_en": "Speaker diarization",
+      "task": "diarization",
+      "files": [
+        {
+          "path": "segmentation.onnx",
+          "url": "https://huggingface.co/csukuangfj/sherpa-onnx-pyannote-segmentation-3-0/resolve/main/model.int8.onnx",
+          "bytes": 1540506,
+          "sha256": "d582f4b4c6b48205de7e0643c57df0df5615a3c176189be3fc461e9d18827b5d"
+        },
+        {
+          "path": "embedding.onnx",
+          "url": "https://huggingface.co/csukuangfj/speaker-embedding-models/resolve/main/wespeaker_en_voxceleb_CAM++.onnx",
+          "bytes": 29292684,
+          "sha256": "c46fad10b5f81e1aa4a60c162714208577093655076c5450f8c469e522ec54ef"
+        }
+      ],
+      "total_bytes": 30833190,
+      "license_runtime": "Apache-2.0",
+      "license_weights": "MIT (pyannote 3.0 segmentation), Apache-2.0 (WeSpeaker CAM++)",
+      "source": "pyannote/segmentation-3.0, wenet-e2e/wespeaker",
+      "ram_estimate_mb": 300,
+      "languages": "language-independent",
+      "notes_en": "Finds who speaks when, to colour captions per speaker.",
+      "known_limits": "Speaker count estimated by clustering threshold; overlapping speech is assigned to one speaker."
+    },
+    {
+      "id": "matting-modnet",
+      "name_ar": "فصل الشخص عن الخلفية · MODNet",
+      "name_en": "Subject matting · MODNet",
+      "task": "matting",
+      "files": [
+        {
+          "path": "modnet.onnx",
+          "url": "https://huggingface.co/Xenova/modnet/resolve/main/onnx/model.onnx",
+          "bytes": 25888640,
+          "sha256": "07c308cf0fc7e6e8b2065a12ed7fc07e1de8febb7dc7839d7b7f15dd66584df9"
+        }
+      ],
+      "total_bytes": 25888640,
+      "license_runtime": "Apache-2.0",
+      "license_weights": "Apache-2.0",
+      "source": "ZHKKKe/MODNet (ONNX by Xenova)",
+      "ram_estimate_mb": 400,
+      "languages": "-",
+      "notes_en": "Works on people without a green screen, with temporal edge smoothing.",
+      "known_limits": "Portrait matting; trained on people. Objects/animals are not reliably segmented. Brush refinement corrects mattes."
+    },
+    {
+      "id": "separation-spleeter-2",
+      "name_ar": "فصل الغناء/المرافقة · Spleeter",
+      "name_en": "Vocals / accompaniment · Spleeter",
+      "task": "separation",
+      "files": [
+        {
+          "path": "vocals.onnx",
+          "url": "https://huggingface.co/csukuangfj/sherpa-onnx-spleeter-2stems/resolve/main/vocals.onnx",
+          "bytes": 39318336,
+          "sha256": "bdc16ab6bf6117ddd4842c19e80e40e2be188fc555295064d424616b0224ac97"
+        },
+        {
+          "path": "accompaniment.onnx",
+          "url": "https://huggingface.co/csukuangfj/sherpa-onnx-spleeter-2stems/resolve/main/accompaniment.onnx",
+          "bytes": 39318343,
+          "sha256": "671ace17acd3720674a2bc14de32ac6292453dec20d9eb0ba4255d4ad8e3d8c0"
+        }
+      ],
+      "total_bytes": 78636679,
+      "license_runtime": "Apache-2.0",
+      "license_weights": "MIT (Deezer Spleeter)",
+      "source": "deezer/spleeter via k2-fsa/sherpa-onnx",
+      "ram_estimate_mb": 600,
+      "languages": "-",
+      "notes_en": "Two stems: vocals and accompaniment. Not always perfect.",
+      "known_limits": "Two stems only (vocals/accompaniment). No 4-stem (drums/bass) model is available in ONNX form from a source we could verify, so 4-stem is not offered."
+    },
+    {
+      "id": "planner-qwen2.5-0.5b",
+      "name_ar": "المساعد اللغوي · Qwen2.5 0.5B",
+      "name_en": "Assistant language model · Qwen2.5 0.5B",
+      "task": "planner",
+      "files": [
+        {
+          "path": "planner.task",
+          "url": "https://huggingface.co/litert-community/Qwen2.5-0.5B-Instruct/resolve/main/Qwen2.5-0.5B-Instruct_multi-prefill-seq_q8_ekv1280.task",
+          "bytes": 546660344,
+          "sha256": "e608953f169aeb1bd7b9155fec2559825e08453fc209b84eda3a781ed0452fd2"
+        }
+      ],
+      "total_bytes": 546660344,
+      "license_runtime": "Apache-2.0 (MediaPipe)",
+      "license_weights": "Apache-2.0 (Qwen2.5-0.5B-Instruct)",
+      "source": "Qwen/Qwen2.5-0.5B-Instruct via litert-community",
+      "ram_estimate_mb": 1200,
+      "languages": "ar, en",
+      "notes_en": "Turns compound requests into reviewable, undoable operations.",
+      "known_limits": "Small model; output is validated against a fixed intent schema and every plan is shown for review before applying. Rule-based parser handles the documented examples without the model."
+    }
+  ],
+  "not_available": [
+    {
+      "feature": "4-stem separation (drums/bass/other)",
+      "reason": "No verifiable ONNX model source reachable; Spleeter 4-stem repo returned 404."
+    },
+    {
+      "feature": "Translation into Arabic",
+      "reason": "Whisper translates only into English; no on-device en→ar MT model integrated."
+    }
+  ]
+}

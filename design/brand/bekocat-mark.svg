@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512">
+  <!-- Bekocat mark: a viewfinder frame whose top corners become ears,
+       a play glyph inside, and a keyframe diamond on the baseline (timeline). -->
+  <path d="M19 76 V36 L27 15 L41 29 H59 L73 15 L81 36 V76 Q81 84 73 84 H27 Q19 84 19 76 Z"
+        fill="none" stroke="#9B7CFF" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M44 46 L44 68 L62 57 Z" fill="#F4F7FB" stroke="#F4F7FB" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M50 77 L57 84 L50 91 L43 84 Z" fill="#6EE7C8"/>
+</svg>

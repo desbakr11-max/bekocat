@@ -1,0 +1,67 @@
+Requirement ID,Feature,Implementation,Test,Evidence,Status
+S03-01,No subscription / IAP / ads / watermark / login,No billing/ads/account code; INTERNET only for opt-in model downloads,Manifest + code review,AndroidManifest.xml,Verified
+S05-01,"Kotlin + Compose + Coroutines, modules core/engine/ai/app",4 Gradle modules,Full build (debug + R8 release),app/build/outputs,Verified
+S05-02,Project data independent of UI,core:timeline pure JVM,JVM unit tests (73 pass),core/timeline/src/test,Verified
+S05-03,Shared GPU render graph for preview and export,RenderPlanner → Compositor (GLES3),Emulator instrumentation (engine),ExportInstrumentedTest,Verified
+S06-01,"Multi-track timeline (video/overlay/text/audio, add/move/remove tracks)",EditOps.kt,JVM unit tests (73 pass),TimelineTests,Verified
+S06-02,Trim/Split/Delete/Ripple/Insert/Overwrite/Slip/Slide/Roll/Move,TimelineEditor,JVM unit tests (73 pass),TimelineTests,Verified
+S06-03,"Duplicate, replace media, paste attributes, copy/paste",TimelineEditor + VM,JVM unit tests (73 pass),TimelineTests,Verified
+S06-04,Lock/Hide/Mute/Solo + track UI,Track flags + TrackPanel,JVM (lock) + Compiled; not yet exercised on a device,TimelineTests,Implemented-Unverified
+S06-05,"Group/ungroup, multi-select move",TimelineEditor.group/moveMany,JVM unit tests (73 pass),TimelineTests,Verified
+S06-06,"Snapping, markers, beat markers",snapTargets/snap/addMarker,JVM unit tests (73 pass),TimelineTests,Verified
+S06-07,"Timeline UI: thumbnails, waveforms, keyframe diamonds, drag/trim, pinch zoom",TimelineView.kt,Compiled; not yet exercised on a device,—,Implemented-Unverified
+S06-08,"Range loop playback, frame step, audio-clock preview",PreviewEngine,Compiled; not yet exercised on a device,—,Implemented-Unverified
+S06-09,Undo/Redo for every edit incl. AI (one transaction per plan),History + VM.commit,JVM unit tests (73 pass),TimelineTests/AssistantTest,Verified
+S06-10,"Speed, speed ramps, time remap, freeze frame, reverse",EditOps + planner,JVM unit tests (73 pass),TimelineTests/PlannerTests,Verified
+S06-11,Frame blending / optical flow,FLOW + MIX shaders,Compiled; not yet exercised on a device,—,Implemented-Limited
+S06-12,Rational frame rates without drift,RationalTime.kt,JVM unit tests (73 pass),TimelineTests,Verified
+S07-01,Transform (pos/scale/rot/skew/opacity/anchor/flip/crop/corner pin),Model + planner + LAYER shader,JVM unit tests (73 pass) + Emulator instrumentation (engine),PlannerTests,Verified
+S07-02,On-canvas gizmo handles,EditorScreen gizmo canvas,Compiled; not yet exercised on a device,—,Implemented-Unverified
+S07-03,17 blend modes,BLEND shader (W3C formulas),Compiled; not yet exercised on a device,Shaders.kt,Implemented-Unverified
+S07-04,"Masks (rect/ellipse/bezier, feather, invert, animated), track mattes, PiP",MaskRasterizer + planner,JVM unit tests (73 pass),PlannerTests,Verified
+S07-05,Point tracking + attach layer,Tracker (NCC) + VM.attachSelectedToTrack,JVM unit tests (73 pass) (tracker),VisionTests,Verified
+S07-06,Stabilisation,Stabilizer + VM.stabilize,JVM unit tests (73 pass) (algorithm),VisionTests,Verified
+S07-07,Object removal,TemporalFill + FillPatch compositing,JVM unit tests (73 pass) (algorithm),VisionTests,Implemented-Limited
+S08-01,"Keyframes Hold/Linear/Bezier, easing, expressions",KeyframeEvaluator + Expression,JVM unit tests (73 pass),PlannerTests,Verified
+S08-02,Graph editor / auto-key / motion paths UI,GraphPanel + PropertyRow,Compiled; not yet exercised on a device,—,Implemented-Unverified
+S08-03,"Parenting, nulls, nested comps, shapes, 2.5D camera",RenderPlanner,JVM unit tests (73 pass),PlannerTests,Verified
+S09-01,Arabic shaping + bidi preserved while animating,StaticLayout + selection-path clipping,Emulator instrumentation (engine),compositorRendersFrameWithText,Verified
+S09-02,40 text presets (grapheme-safe animator),TextPresetCatalog + TextAnimator,JVM unit tests (73 pass),PlannerTests,Verified
+S09-03,Text on path (arc/wave/circle),TextRenderer.renderOnPath,Compiled; not yet exercised on a device,—,Implemented-Unverified
+S10-01,"Auto captions (Whisper + VAD, ar/en)",CaptionEngine (sherpa-onnx),Compiled; not yet exercised on a device,MODEL_MANIFEST.json,Implemented-Limited
+S10-02,Word-level timing,VAD phrases exact; words distributed inside phrase,Compiled; not yet exercised on a device,—,Implemented-Limited
+S10-03,Caption translation,Whisper translate → English only,Compiled; not yet exercised on a device,—,Implemented-Limited
+S10-04,"SRT/VTT/ASS import+export, 20 caption styles, resegment",CaptionIO + CaptionStyleCatalog,JVM unit tests (73 pass) + Emulator instrumentation (engine) (SRT export),FormatTests,Verified
+S10-05,Speaker diarization,sherpa OfflineSpeakerDiarization,Compiled; not yet exercised on a device,—,Implemented-Unverified
+S11-01,Chroma key with spill/choke,LAYER shader key path,Compiled; not yet exercised on a device,—,Implemented-Unverified
+S11-02,AI matting (MODNet) + temporal smoothing + brush refine + alpha PNG,MattingEngine,Compiled; not yet exercised on a device,—,Implemented-Unverified
+S12-01,Audio DSP: EQ/comp/limiter/gate/de-esser/denoise/dereverb/reverb,Dsp.kt,JVM unit tests (73 pass),AudioTests,Verified
+S12-02,"Mixer, fades, pan, ducking, BS.1770 loudness, beats, silence",Mixer.kt + Dsp.kt,JVM unit tests (73 pass),AudioTests,Verified
+S12-03,Voice-over recording,MediaRecorder + VM.toggleVoiceOver,Compiled; not yet exercised on a device,—,Implemented-Unverified
+S12-04,AI stem separation,Spleeter 2-stem via ONNX Runtime,Python prototype SDR 25 dB; Compiled; not yet exercised on a device,—,Implemented-Limited
+S12-05,4-stem separation (drums/bass/other),No verifiable ONNX model available,—,MODEL_MANIFEST.json not_available,Blocked
+S13-01,"Primary/secondary grade, wheels, curves, HSL, LUT (.cube), scopes",ColorMath + LAYER shader,JVM unit tests (73 pass) (math),PlannerTests,Verified
+S13-02,51 looks + 41 video effects,LookCatalog + FX shader,JVM unit tests (73 pass) (catalog),PlannerTests,Verified
+S13-03,Colour match to reference,ColorMath.matchStats + VM,JVM unit tests (73 pass) (math),PlannerTests,Verified
+S14-01,37 transitions rendered with handles,TRANSITION shader + planner,JVM unit tests (73 pass) + Emulator instrumentation (engine),ExportInstrumentedTest (dissolve),Verified
+S15-01,"Assistant: rule parser for all spec examples, one-transaction apply",AssistantParser + VM.applyPlan,JVM unit tests (73 pass),AssistantTest,Verified
+S15-02,On-device LLM planner (Qwen2.5-0.5B) with validated JSON,PlannerEngine (MediaPipe),Compiled; not yet exercised on a device,—,Implemented-Unverified
+S15-03,"Silence removal, scene detection, auto montage, shorts, reframe",Vision.kt + VM,JVM unit tests (73 pass) (algorithms),VisionTests,Verified
+S16-01,"25 templates, brand kit, save as template",TemplateCatalog + VM,JVM unit tests (73 pass),PackageTests/TemplateTest,Verified
+S17-01,"Original logo, icon, tokens",design/brand,Visual check,design/brand,Verified
+S17-02,"Arabic default UI + English, RTL",values + values-en + tr(),Compiled; not yet exercised on a device,—,Implemented-Unverified
+S18-01,"Onboarding, Home, Editor, Settings, model manager, licences",Compose screens,Build,app/src/main/java,Implemented-Unverified
+S19-01,Schema v3 + migrations 1→2→3,ProjectCodec,JVM unit tests (73 pass),TimelineTests,Verified
+S19-02,"Atomic save, .bak, journal, rolling backups",ProjectStore,JVM unit tests (73 pass),TimelineTests,Verified
+S19-03,.bekocat package with zip-slip/zip-bomb protection,ProjectPackage,JVM unit tests (73 pass),PackageTests,Verified
+S19-04,Relink missing media,Repository + VM.relink,Compiled; not yet exercised on a device,—,Implemented-Unverified
+S21-01,"Model manager: resumable download, SHA-256, free-space check, delete",ModelManager,Compiled; not yet exercised on a device (downloads tested from build env),MODEL_MANIFEST.json,Implemented-Unverified
+S22-01,MP4 H.264 + AAC export with verification,Exporter,Emulator instrumentation (engine),exportsMp4WithVideoAndAudio,Verified
+S22-02,HEVC / AV1 export (when device has encoders),Exporter.availableCodecs,Compiled; not yet exercised on a device (emulator lacks HW encoders),—,Implemented-Unverified
+S22-03,"GIF, WAV, SRT export",Exporter,Emulator instrumentation (engine),exportsGifWavSrt,Verified
+S22-04,"PNG/JPEG sequence (+alpha), M4A, stems, VTT/ASS",Exporter,Compiled; not yet exercised on a device,—,Implemented-Unverified
+S22-05,"Save to gallery/Music + share, export queue",VM publish,Compiled; not yet exercised on a device,—,Implemented-Unverified
+S23-01,CI: unit tests + APKs,android.yml,Runs on push,Actions,Implemented-Unverified
+S23-02,Instrumentation tests,engine/src/androidTest (3 tests),Emulator instrumentation (engine),TEST_REPORT.md,Verified
+S24-01,Full acceptance scenario on a real phone,—,Not executed,—,Not Run
+S25-01,Signed release,Env-var signing; R8 release builds unsigned here,—,—,Owner action

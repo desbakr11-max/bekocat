@@ -1,0 +1,11 @@
+<resources>
+    <style name="Theme.Bekocat" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/bk_background</item>
+        <item name="android:statusBarColor">@color/bk_background</item>
+        <item name="android:navigationBarColor">@color/bk_background</item>
+        <item name="android:colorAccent">@color/bk_primary</item>
+    </style>
+    <style name="Theme.Bekocat.Splash">
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+</resources>
