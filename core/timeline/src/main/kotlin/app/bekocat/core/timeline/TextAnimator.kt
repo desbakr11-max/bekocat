@@ -26,7 +26,15 @@ object TextAnimator {
             val out = ArrayList<IntRange>()
             var s = it.first(); var e = it.next()
             while (e != BreakIterator.DONE) {
-                if (!text.substring(s, e).isBlank()) out += s until e
+                if (!text.substring(s, e).isBlank()) {
+                    // Older JDK BreakIterators split emoji modifiers / ZWJ sequences / variation selectors;
+                    // merge them into the previous cluster so behaviour matches ICU (Android) on every JVM.
+                    val cp = text.codePointAt(s)
+                    val prev = out.lastOrNull()
+                    val joins = cp in 0x1F3FB..0x1F3FF || cp == 0x200D || cp in 0xFE00..0xFE0F || cp in 0xE0020..0xE007F ||
+                        (prev != null && prev.last + 1 == s && text[prev.last] == '\u200D')
+                    if (joins && prev != null && prev.last + 1 == s) out[out.size - 1] = prev.first until e else out += s until e
+                }
                 s = e; e = it.next()
             }
             out
